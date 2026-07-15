@@ -15,15 +15,212 @@
         "summary": "Crear un nuevo autor",
         "requestBody": {
           "required": true,
-          "content": { "application/json": { "schema": { "type": "object", "required": ["name", "email"], "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "bio": { "type": "string" } } } } }
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name", "email"],
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "bio": { "type": "string" }
+                }
+              }
+            }
+          }
         },
-        "responses": { "201": { "description": "Autor creado" }, "400": { "description": "Validación fallida" } }
+        "responses": {
+          "201": { "description": "Autor creado" },
+          "400": { "description": "Validación fallida" },
+          "409": { "description": "El email ya está registrado" }
+        }
+      }
+    },
+    "/authors/{id}": {
+      "get": {
+        "summary": "Obtener un autor por id",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Autor encontrado" },
+          "404": { "description": "Autor no encontrado" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un autor",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "bio": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Autor actualizado" },
+          "404": { "description": "Autor no encontrado" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un autor (borra en cascada sus publicaciones)",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Autor eliminado" },
+          "404": { "description": "Autor no encontrado" }
+        }
       }
     },
     "/posts": {
       "get": {
         "summary": "Obtener todas las publicaciones",
         "responses": { "200": { "description": "Lista devuelta con éxito" } }
+      },
+      "post": {
+        "summary": "Crear una nueva publicación",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["title", "content", "author_id"],
+                "properties": {
+                  "title": { "type": "string" },
+                  "content": { "type": "string" },
+                  "author_id": { "type": "integer" },
+                  "published": { "type": "boolean" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Publicación creada" },
+          "400": { "description": "Validación fallida o author_id inexistente" }
+        }
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "summary": "Obtener una publicación por id",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Publicación encontrada" },
+          "404": { "description": "Publicación no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una publicación",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": { "type": "string" },
+                  "content": { "type": "string" },
+                  "published": { "type": "boolean" },
+                  "author_id": { "type": "integer" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Publicación actualizada" },
+          "404": { "description": "Publicación no encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una publicación (borra en cascada sus comentarios)",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Publicación eliminada" },
+          "404": { "description": "Publicación no encontrada" }
+        }
+      }
+    },
+    "/posts/author/{authorId}": {
+      "get": {
+        "summary": "Obtener las publicaciones de un autor, junto con su detalle",
+        "parameters": [
+          { "name": "authorId", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Autor y sus publicaciones" },
+          "404": { "description": "Autor no encontrado" }
+        }
+      }
+    },
+    "/comments": {
+      "get": {
+        "summary": "Obtener todos los comentarios",
+        "responses": { "200": { "description": "Lista de comentarios devuelta exitosamente" } }
+      },
+      "post": {
+        "summary": "Crear un comentario sobre una publicación",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["post_id", "content"],
+                "properties": {
+                  "post_id": { "type": "integer" },
+                  "author_id": { "type": "integer" },
+                  "content": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Comentario creado" },
+          "400": { "description": "Validación fallida" }
+        }
+      }
+    },
+    "/comments/post/{postId}": {
+      "get": {
+        "summary": "Obtener los comentarios de una publicación",
+        "parameters": [
+          { "name": "postId", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Lista de comentarios de la publicación" }
+        }
+      }
+    },
+    "/comments/{id}": {
+      "delete": {
+        "summary": "Eliminar un comentario",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Comentario eliminado" },
+          "404": { "description": "Comentario no encontrado" }
+        }
       }
     }
   }
