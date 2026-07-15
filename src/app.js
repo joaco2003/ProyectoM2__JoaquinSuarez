@@ -19,8 +19,9 @@ app.use('/authors', authorRoutes);
 app.use('/posts', postRoutes);
 app.use('/comments', commentRoutes);
 
-// Healthcheck endpoint
-app.get('/health', (req, res) => res.status(200).json({ status: 'OK' }));
+app.get('/', (req, res) => {
+    res.json({ message: "La API de MiniBlog está en funcionamiento" });
+});
 
 // Middleware centralizado de errores
 app.use(errorHandler);
