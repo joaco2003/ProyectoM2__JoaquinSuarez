@@ -5,13 +5,37 @@
     "version": "1.0.0",
     "description": "API REST para gestión de autores, publicaciones y comentarios conectada a PostgreSQL."
   },
+  "tags": [
+    {
+      "name": "Autores",
+      "description": "Endpoints de gestión de autores"
+    },
+    {
+      "name": "Publicaciones",
+      "description": "Endpoints de gestión de publicaciones"
+    },
+    {
+      "name": "Comentarios",
+      "description": "Endpoints de gestión de comentarios"
+    }
+  ],
   "paths": {
     "/authors": {
       "get": {
+        "tags": [
+          "Autores"
+        ],
         "summary": "Obtener todos los autores",
-        "responses": { "200": { "description": "Lista de autores devuelta exitosamente" } }
+        "responses": {
+          "200": {
+            "description": "Lista de autores devuelta exitosamente"
+          }
+        }
       },
       "post": {
+        "tags": [
+          "Autores"
+        ],
         "summary": "Crear un nuevo autor",
         "requestBody": {
           "required": true,
@@ -19,38 +43,77 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["name", "email"],
+                "required": [
+                  "name",
+                  "email"
+                ],
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string" },
-                  "bio": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "bio": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Autor creado" },
-          "400": { "description": "Validación fallida" },
-          "409": { "description": "El email ya está registrado" }
+          "201": {
+            "description": "Autor creado"
+          },
+          "400": {
+            "description": "Validación fallida"
+          },
+          "409": {
+            "description": "El email ya está registrado"
+          }
         }
       }
     },
     "/authors/{id}": {
       "get": {
+        "tags": [
+          "Autores"
+        ],
         "summary": "Obtener un autor por id",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Autor encontrado" },
-          "404": { "description": "Autor no encontrado" }
+          "200": {
+            "description": "Autor encontrado"
+          },
+          "404": {
+            "description": "Autor no encontrado"
+          }
         }
       },
       "put": {
+        "tags": [
+          "Autores"
+        ],
         "summary": "Actualizar un autor",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -58,36 +121,70 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": { "type": "string" },
-                  "email": { "type": "string" },
-                  "bio": { "type": "string" }
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "bio": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Autor actualizado" },
-          "404": { "description": "Autor no encontrado" }
+          "200": {
+            "description": "Autor actualizado"
+          },
+          "404": {
+            "description": "Autor no encontrado"
+          }
         }
       },
       "delete": {
+        "tags": [
+          "Autores"
+        ],
         "summary": "Eliminar un autor (borra en cascada sus publicaciones)",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Autor eliminado" },
-          "404": { "description": "Autor no encontrado" }
+          "204": {
+            "description": "Autor eliminado"
+          },
+          "404": {
+            "description": "Autor no encontrado"
+          }
         }
       }
     },
     "/posts": {
       "get": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener todas las publicaciones",
-        "responses": { "200": { "description": "Lista devuelta con éxito" } }
+        "responses": {
+          "200": {
+            "description": "Lista devuelta con éxito"
+          }
+        }
       },
       "post": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Crear una nueva publicación",
         "requestBody": {
           "required": true,
@@ -95,38 +192,78 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["title", "content", "author_id"],
+                "required": [
+                  "title",
+                  "content",
+                  "author_id"
+                ],
                 "properties": {
-                  "title": { "type": "string" },
-                  "content": { "type": "string" },
-                  "author_id": { "type": "integer" },
-                  "published": { "type": "boolean" }
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "author_id": {
+                    "type": "integer"
+                  },
+                  "published": {
+                    "type": "boolean"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Publicación creada" },
-          "400": { "description": "Validación fallida o author_id inexistente" }
+          "201": {
+            "description": "Publicación creada"
+          },
+          "400": {
+            "description": "Validación fallida o author_id inexistente"
+          }
         }
       }
     },
     "/posts/{id}": {
       "get": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener una publicación por id",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Publicación encontrada" },
-          "404": { "description": "Publicación no encontrada" }
+          "200": {
+            "description": "Publicación encontrada"
+          },
+          "404": {
+            "description": "Publicación no encontrado"
+          }
         }
       },
       "put": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Actualizar una publicación",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -134,49 +271,99 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "title": { "type": "string" },
-                  "content": { "type": "string" },
-                  "published": { "type": "boolean" },
-                  "author_id": { "type": "integer" }
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "published": {
+                    "type": "boolean"
+                  },
+                  "author_id": {
+                    "type": "integer"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": { "description": "Publicación actualizada" },
-          "404": { "description": "Publicación no encontrada" }
+          "200": {
+            "description": "Publicación actualizada"
+          },
+          "404": {
+            "description": "Publicación no encontrada"
+          }
         }
       },
       "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Eliminar una publicación (borra en cascada sus comentarios)",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Publicación eliminada" },
-          "404": { "description": "Publicación no encontrada" }
+          "204": {
+            "description": "Publicación eliminada"
+          },
+          "404": {
+            "description": "Publicación no encontrada"
+          }
         }
       }
     },
     "/posts/author/{authorId}": {
       "get": {
+        "tags": [
+          "Publicaciones"
+        ],
         "summary": "Obtener las publicaciones de un autor, junto con su detalle",
         "parameters": [
-          { "name": "authorId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "authorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Autor y sus publicaciones" },
-          "404": { "description": "Autor no encontrado" }
+          "200": {
+            "description": "Autor y sus publicaciones"
+          },
+          "404": {
+            "description": "Autor no encontrado"
+          }
         }
       }
     },
     "/comments": {
       "get": {
+        "tags": [
+          "Comentarios"
+        ],
         "summary": "Obtener todos los comentarios",
-        "responses": { "200": { "description": "Lista de comentarios devuelta exitosamente" } }
+        "responses": {
+          "200": {
+            "description": "Lista de comentarios devuelta exitosamente"
+          }
+        }
       },
       "post": {
+        "tags": [
+          "Comentarios"
+        ],
         "summary": "Crear un comentario sobre una publicación",
         "requestBody": {
           "required": true,
@@ -184,42 +371,81 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["post_id", "content"],
+                "required": [
+                  "post_id",
+                  "content"
+                ],
                 "properties": {
-                  "post_id": { "type": "integer" },
-                  "author_id": { "type": "integer" },
-                  "content": { "type": "string" }
+                  "post_id": {
+                    "type": "integer"
+                  },
+                  "author_id": {
+                    "type": "integer"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "201": { "description": "Comentario creado" },
-          "400": { "description": "Validación fallida" }
+          "201": {
+            "description": "Comentario creado"
+          },
+          "400": {
+            "description": "Validación fallida"
+          }
         }
       }
     },
     "/comments/post/{postId}": {
       "get": {
+        "tags": [
+          "Comentarios"
+        ],
         "summary": "Obtener los comentarios de una publicación",
         "parameters": [
-          { "name": "postId", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "200": { "description": "Lista de comentarios de la publicación" }
+          "200": {
+            "description": "Lista de comentarios de la publicación"
+          }
         }
       }
     },
     "/comments/{id}": {
       "delete": {
+        "tags": [
+          "Comentarios"
+        ],
         "summary": "Eliminar un comentario",
         "parameters": [
-          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
         ],
         "responses": {
-          "204": { "description": "Comentario eliminado" },
-          "404": { "description": "Comentario no encontrado" }
+          "204": {
+            "description": "Comentario eliminado"
+          },
+          "404": {
+            "description": "Comentario no encontrado"
+          }
         }
       }
     }
