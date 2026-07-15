@@ -7,6 +7,13 @@ const getCommentsByPost = async (req, res, next) => {
     } catch (error) { next(error); }
 };
 
+const getAllComments = async (req, res, next) => {
+    try {
+        const comments = await commentService.getAllComments();
+        res.status(200).json(comments);
+    } catch (error) { next(error); }
+};
+
 const createComment = async (req, res, next) => {
     try {
         const { post_id, author_id, content } = req.body;
@@ -23,4 +30,4 @@ const deleteComment = async (req, res, next) => {
     } catch (error) { next(error); }
 };
 
-module.exports = { getCommentsByPost, createComment, deleteComment };
+module.exports = { getCommentsByPost, getAllComments, createComment, deleteComment };
