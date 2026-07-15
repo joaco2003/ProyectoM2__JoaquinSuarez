@@ -1,4 +1,4 @@
-const db = require('../configuracion/db');
+const db = require('../Configuracion/db');
 
 const getAllAuthors = async () => {
     const { rows } = await db.query('SELECT * FROM authors ORDER BY id ASC');

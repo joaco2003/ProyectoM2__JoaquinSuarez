@@ -1,4 +1,4 @@
-const db = require('../configuracion/db');
+const db = require('../Configuracion/db');
 
 const getCommentsByPostId = async (postId) => {
     const query = `
