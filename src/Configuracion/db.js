@@ -1,9 +1,7 @@
 const { Pool } = require('pg');
 require('dotenv').config();
 
-// DEBUG temporal - lo sacamos despues
-console.log('DATABASE_URL configurada:', process.env.DATABASE_URL ? 'SI' : 'NO');
-console.log('Host detectado:', process.env.DATABASE_URL ? process.env.DATABASE_URL.split('@')[1] : 'N/A');
+
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
