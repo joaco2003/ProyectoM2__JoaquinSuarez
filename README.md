@@ -29,7 +29,7 @@ Antes de ejecutar este proyecto localmente, asegúrate de tener instalado:
 git clone [https://github.com/joaco2003/ProyectoM2__JoaquinSuarez](https://github.com/joaco2003/ProyectoM2__JoaquinSuarez)
 cd miniblog-api
 npm install
-
+```
 Endpoints Principales:
 Autores: GET, POST, PUT, DELETE en /authors
 
@@ -39,7 +39,7 @@ Publicaciones por Autor: GET en /posts/author/:authorId
 
 Comentarios (Extra Credit): GET, POST, DELETE en /comments
 
-🧪 Pruebas (Testing)
+ 🧪 Pruebas (Testing)
 El proyecto cuenta con pruebas de integración utilizando Jest y Supertest para validar la creación de entidades, manejo de errores y borrado en cascada.
 
 Para ejecutar los tests, utiliza:
