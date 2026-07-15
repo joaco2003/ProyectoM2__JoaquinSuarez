@@ -1,0 +1,30 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "MiniBlog API",
+    "version": "1.0.0",
+    "description": "API REST para gestión de autores, publicaciones y comentarios conectada a PostgreSQL."
+  },
+  "paths": {
+    "/authors": {
+      "get": {
+        "summary": "Obtener todos los autores",
+        "responses": { "200": { "description": "Lista de autores devuelta exitosamente" } }
+      },
+      "post": {
+        "summary": "Crear un nuevo autor",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object", "required": ["name", "email"], "properties": { "name": { "type": "string" }, "email": { "type": "string" }, "bio": { "type": "string" } } } } }
+        },
+        "responses": { "201": { "description": "Autor creado" }, "400": { "description": "Validación fallida" } }
+      }
+    },
+    "/posts": {
+      "get": {
+        "summary": "Obtener todas las publicaciones",
+        "responses": { "200": { "description": "Lista devuelta con éxito" } }
+      }
+    }
+  }
+}
