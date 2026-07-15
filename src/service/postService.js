@@ -1,4 +1,4 @@
-const db = require('../configuracion/db');
+const db = require('../Configuracion/db');
 
 const getAllPosts = async () => {
     const { rows } = await db.query('SELECT * FROM posts ORDER BY created_at DESC');
